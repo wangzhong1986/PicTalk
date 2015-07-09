@@ -23,6 +23,16 @@
 //  The following is standard:
 
 #import "XMPP.h"
+
+// 自动连接模块：意外断线会自动连接
+#import "XMPPReconnect.h"
+
+//电子名片模块 ：使用生么模块需要打开下面的注释
+#import "XMPPvCardTempModule.h"
+#import "XMPPvCardCoreDataStorage.h"
+
+//电子名片头像模块
+#import "XMPPvCardAvatarModule.h"
  
 // List the modules you're using here:
 // (the following may not be a complete list)

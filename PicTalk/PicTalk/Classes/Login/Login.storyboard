@@ -259,8 +259,8 @@
                                             <action selector="textChange:" destination="b2P-Jw-eIv" eventType="editingChanged" id="ZIz-A3-iCd"/>
                                         </connections>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g2e-g3-s1N">
-                                        <rect key="frame" x="0.0" y="151" width="528" height="41"/>
+                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g2e-g3-s1N">
+                                        <rect key="frame" x="0.0" y="151" width="528" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="100-ws-Mhq"/>
                                         </constraints>

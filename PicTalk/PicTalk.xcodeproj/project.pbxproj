@@ -25,6 +25,8 @@
 		5312F2CF1B4D34E500DF8D7F /* PTBaseLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5312F2CE1B4D34E500DF8D7F /* PTBaseLoginViewController.m */; };
 		5312F2D21B4D37FB00DF8D7F /* PTRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5312F2D11B4D37FB00DF8D7F /* PTRegisterViewController.m */; };
 		538C30211B4E25140079AE4D /* PTXMPPTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 538C30201B4E25140079AE4D /* PTXMPPTool.m */; };
+		538C30241B4E476E0079AE4D /* PTProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 538C30231B4E476E0079AE4D /* PTProfileTableViewController.m */; };
+		538C30271B4E525E0079AE4D /* PTEditProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 538C30261B4E525E0079AE4D /* PTEditProfileTableViewController.m */; };
 		53F4B8B71B4CE97F00FE11F6 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 53F4B88F1B4CE97F00FE11F6 /* GCDAsyncSocket.m */; };
 		53F4B8B81B4CE97F00FE11F6 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 53F4B8921B4CE97F00FE11F6 /* DDAbstractDatabaseLogger.m */; };
 		53F4B8B91B4CE97F00FE11F6 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 53F4B8941B4CE97F00FE11F6 /* DDASLLogger.m */; };
@@ -224,6 +226,10 @@
 		5312F2D11B4D37FB00DF8D7F /* PTRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTRegisterViewController.m; sourceTree = "<group>"; };
 		538C301F1B4E25140079AE4D /* PTXMPPTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTXMPPTool.h; sourceTree = "<group>"; };
 		538C30201B4E25140079AE4D /* PTXMPPTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTXMPPTool.m; sourceTree = "<group>"; };
+		538C30221B4E476E0079AE4D /* PTProfileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTProfileTableViewController.h; sourceTree = "<group>"; };
+		538C30231B4E476E0079AE4D /* PTProfileTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTProfileTableViewController.m; sourceTree = "<group>"; };
+		538C30251B4E525E0079AE4D /* PTEditProfileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTEditProfileTableViewController.h; sourceTree = "<group>"; };
+		538C30261B4E525E0079AE4D /* PTEditProfileTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTEditProfileTableViewController.m; sourceTree = "<group>"; };
 		53F4B88E1B4CE97F00FE11F6 /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
 		53F4B88F1B4CE97F00FE11F6 /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
 		53F4B8911B4CE97F00FE11F6 /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
@@ -579,6 +585,10 @@
 				53F9272C1B4BAE6B00ECF807 /* Main.storyboard */,
 				5312F2C21B4D1DA700DF8D7F /* PTMeViewController.h */,
 				5312F2C31B4D1DA700DF8D7F /* PTMeViewController.m */,
+				538C30221B4E476E0079AE4D /* PTProfileTableViewController.h */,
+				538C30231B4E476E0079AE4D /* PTProfileTableViewController.m */,
+				538C30251B4E525E0079AE4D /* PTEditProfileTableViewController.h */,
+				538C30261B4E525E0079AE4D /* PTEditProfileTableViewController.m */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -1761,6 +1771,7 @@
 				53F4BA421B4CEA8300FE11F6 /* XMPPRoomOccupantCoreDataStorageObject.m in Sources */,
 				53F4BA681B4CEA8300FE11F6 /* XMPPCapabilities.xcdatamodel in Sources */,
 				53F4BA4E1B4CEA8300FE11F6 /* XMPPvCardAvatarCoreDataStorageObject.m in Sources */,
+				538C30241B4E476E0079AE4D /* PTProfileTableViewController.m in Sources */,
 				53F4BA7A1B4CEA8300FE11F6 /* XMPPStreamManagementStanzas.m in Sources */,
 				5312F2CF1B4D34E500DF8D7F /* PTBaseLoginViewController.m in Sources */,
 				53F4BA6A1B4CEA8300FE11F6 /* XMPPCapsCoreDataStorageObject.m in Sources */,
@@ -1775,6 +1786,7 @@
 				53F4BA401B4CEA8300FE11F6 /* XMPPRoomCoreDataStorage.m in Sources */,
 				53F4BA7C1B4CEA8300FE11F6 /* XMPPAutoPing.m in Sources */,
 				53F4BA311B4CEA8300FE11F6 /* XMPPRoster.xcdatamodel in Sources */,
+				538C30271B4E525E0079AE4D /* PTEditProfileTableViewController.m in Sources */,
 				53F4BA301B4CEA8300FE11F6 /* XMPPResourceCoreDataStorageObject.m in Sources */,
 				53F4BA321B4CEA8300FE11F6 /* XMPPRosterCoreDataStorage.m in Sources */,
 				53F4B8C21B4CE97F00FE11F6 /* DDXMLDocument.m in Sources */,

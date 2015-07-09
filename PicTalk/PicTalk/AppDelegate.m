@@ -7,16 +7,11 @@
 
 #import "AppDelegate.h"
 #import "PTNavigationController.h"
+#import "XMPPFramework.h"
+#import "DDLog.h"
+#import "DDTTYLogger.h"
 
 
-/*
- * 在AppDelegate实现登录
- 
- 1. 初始化XMPPStream
- 2. 连接到服务器[传一个JID]
- 3. 连接到服务成功后，再发送密码授权
- 4. 授权成功后，发送"在线" 消息
- */
 @interface AppDelegate ()
 
 @end
@@ -25,6 +20,12 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    // 沙盒的路径
+    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    NSLog(@"%@",path);
+    
+    // 打开XMPP的日志
+    [DDLog addLogger:[DDTTYLogger sharedInstance]];
     
     // 设置导航栏背景
     [PTNavigationController setupNavTheme];

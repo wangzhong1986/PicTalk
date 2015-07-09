@@ -54,10 +54,14 @@
         PTNavigationController *vc = destVc;
         
         //获取根控制器
-        PTRegisterViewController *registerVc = (PTRegisterViewController *)vc.topViewController;
-        
-        //设置代理
-        registerVc.delegate = self;
+        id destRegisterVc = (PTRegisterViewController *)vc.topViewController;
+        if ([destRegisterVc isKindOfClass:[PTRegisterViewController class]]) {
+            PTRegisterViewController *registerVc = (PTRegisterViewController *)vc.topViewController;
+            
+            //设置代理
+            registerVc.delegate = self;
+        }
+  
     }
 
 }

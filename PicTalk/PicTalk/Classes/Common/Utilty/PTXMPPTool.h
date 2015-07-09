@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "XMPPFramework.h"
 
 typedef enum{
     XMPPResultTypeLoginSuccess,
@@ -29,6 +29,9 @@ typedef void (^XMPPResultBlock)(XMPPResultType type);
 @interface PTXMPPTool : NSObject
 
 singleton_interface(PTXMPPTool)
+
+
+@property (nonatomic, strong) XMPPvCardTempModule *vCard;//电子名片 ;
 
 /**
  *

@@ -8,12 +8,28 @@
 
 #import "PTXMPPTool.h"
 
-#import "XMPPFramework.h"
+
+
+
+/*
+ * PTXMPPTool实现登录
+ 
+ 1. 初始化XMPPStream
+ 2. 连接到服务器[传一个JID]
+ 3. 连接到服务成功后，再发送密码授权
+ 4. 授权成功后，发送"在线" 消息
+ */
 
 @interface PTXMPPTool()<XMPPStreamDelegate>
 {
     XMPPStream *_xmppStream;
     XMPPResultBlock _resultBlock;
+    
+    XMPPReconnect *_reconnect;
+    
+    XMPPvCardCoreDataStorage *_vCardStorage;//电子名片存储
+    
+    XMPPvCardAvatarModule *_avatar;//头像
 }
 
 // 1. 初始化XMPPStream
@@ -45,9 +61,52 @@ singleton_implementation(PTXMPPTool)
     
     _xmppStream = [[XMPPStream alloc] init];
     
+    //每添加一个模块都要激活，激活就会请求服务器获取相关数据，请求结束后将结果放在数据库中
+    
+    //添加自动连接模块
+    _reconnect = [[XMPPReconnect alloc] init];
+    [_reconnect activate:_xmppStream];
+    
+    //添加电子名片模块
+    _vCardStorage = [XMPPvCardCoreDataStorage sharedInstance];
+    _vCard = [[XMPPvCardTempModule alloc] initWithvCardStorage:_vCardStorage];
+    [_vCard activate:_xmppStream];//激活
+    
+    //头像模块
+    _avatar = [[XMPPvCardAvatarModule alloc] initWithvCardTempModule:_vCard];
+    [_avatar activate:_xmppStream];//激活
+    
+    
     // 设置代理
     [_xmppStream addDelegate:self delegateQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
 }
+
+#pragma mark 释放xmppStream相关的资源
+-(void)teardownXmpp{
+    
+    // 移除代理
+    [_xmppStream removeDelegate:self];
+    
+    // 停止模块
+    [_reconnect deactivate];
+    [_vCard deactivate];
+    [_avatar deactivate];
+    //[_roster deactivate];
+    
+    // 断开连接
+    [_xmppStream disconnect];
+    
+    // 清空资源
+    _reconnect = nil;
+    _vCard = nil;
+    _vCardStorage = nil;
+    _avatar = nil;
+    //_roster = nil;
+    //_rosterStorage = nil;
+    _xmppStream = nil;
+    
+}
+
 
 #pragma mark 连接到服务器
 -(void)connectToHost{
@@ -240,5 +299,7 @@ singleton_implementation(PTXMPPTool)
     [self connectToHost];
 }
 
-
+-(void)dealloc{
+    [self teardownXmpp];
+}
 @end
