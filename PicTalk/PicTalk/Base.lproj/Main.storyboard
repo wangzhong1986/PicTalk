@@ -52,7 +52,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5KT-nz-Euu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1053" y="-960"/>
+            <point key="canvasLocation" x="1049" y="-960"/>
         </scene>
         <!--消息-->
         <scene sceneID="NzA-XF-DY6">
@@ -120,6 +120,9 @@
                             </button>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="1F8-O1-DgD" kind="show" identifier="ChatSegue" id="oOj-ow-hp1"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lkN-5U-jm2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -169,7 +172,25 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z6o-y7-kQo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1701" y="-286"/>
+            <point key="canvasLocation" x="2021" y="-630"/>
+        </scene>
+        <!--聊天界面-->
+        <scene sceneID="naQ-95-LXX">
+            <objects>
+                <viewController hidesBottomBarWhenPushed="YES" id="1F8-O1-DgD" userLabel="聊天界面" customClass="PTChatViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="kWk-Od-6WN"/>
+                        <viewControllerLayoutGuide type="bottom" id="xdG-SZ-SIX"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hDC-tc-i5x">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XhB-Cy-xIC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2020" y="50"/>
         </scene>
         <!--发现-->
         <scene sceneID="xg1-nt-Ubv">
@@ -261,7 +282,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jtE-wN-3Bt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1037" y="1044"/>
+            <point key="canvasLocation" x="1053" y="1044"/>
         </scene>
         <!--Profile Table View Controller-->
         <scene sceneID="8Vx-xY-uz8">

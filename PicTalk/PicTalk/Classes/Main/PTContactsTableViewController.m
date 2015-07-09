@@ -7,6 +7,7 @@
 //
 
 #import "PTContactsTableViewController.h"
+#import "PTChatViewController.h"
 
 @interface PTContactsTableViewController ()<NSFetchedResultsControllerDelegate>
 {
@@ -182,7 +183,15 @@
     }
 }
 
-
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // 获取对应好友
+    XMPPUserCoreDataStorageObject *friend = _resultController.fetchedObjects[indexPath.row];
+    
+    XMPPJID *friendJid = friend.jid;
+    
+    [self performSegueWithIdentifier:@"ChatSegue" sender:friendJid];
+}
 /*
 // Override to support rearranging the table view.
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
@@ -197,14 +206,22 @@
 }
 */
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    
+    id destVc = segue.destinationViewController;
+    
+    if ([destVc isKindOfClass:[PTChatViewController class]]) {
+        
+        PTChatViewController *vc = destVc;
+        vc.friendJid = sender;
+    }
 }
-*/
+
 
 @end

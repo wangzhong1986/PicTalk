@@ -29,6 +29,9 @@
 		538C30271B4E525E0079AE4D /* PTEditProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 538C30261B4E525E0079AE4D /* PTEditProfileTableViewController.m */; };
 		538C302A1B4E63F70079AE4D /* PTContactsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 538C30291B4E63F70079AE4D /* PTContactsTableViewController.m */; };
 		538C302D1B4E72350079AE4D /* PTAddContactTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 538C302C1B4E72350079AE4D /* PTAddContactTableViewController.m */; };
+		538C30301B4E7C6F0079AE4D /* PTChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 538C302F1B4E7C6F0079AE4D /* PTChatViewController.m */; };
+		538C30341B4E7CE60079AE4D /* PTInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 538C30331B4E7CE60079AE4D /* PTInputView.m */; };
+		538C30361B4E7D020079AE4D /* PTInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 538C30351B4E7D020079AE4D /* PTInputView.xib */; };
 		53F4B8B71B4CE97F00FE11F6 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 53F4B88F1B4CE97F00FE11F6 /* GCDAsyncSocket.m */; };
 		53F4B8B81B4CE97F00FE11F6 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 53F4B8921B4CE97F00FE11F6 /* DDAbstractDatabaseLogger.m */; };
 		53F4B8B91B4CE97F00FE11F6 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 53F4B8941B4CE97F00FE11F6 /* DDASLLogger.m */; };
@@ -236,6 +239,11 @@
 		538C30291B4E63F70079AE4D /* PTContactsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTContactsTableViewController.m; sourceTree = "<group>"; };
 		538C302B1B4E72350079AE4D /* PTAddContactTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTAddContactTableViewController.h; sourceTree = "<group>"; };
 		538C302C1B4E72350079AE4D /* PTAddContactTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTAddContactTableViewController.m; sourceTree = "<group>"; };
+		538C302E1B4E7C6F0079AE4D /* PTChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTChatViewController.h; sourceTree = "<group>"; };
+		538C302F1B4E7C6F0079AE4D /* PTChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTChatViewController.m; sourceTree = "<group>"; };
+		538C30321B4E7CE60079AE4D /* PTInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTInputView.h; sourceTree = "<group>"; };
+		538C30331B4E7CE60079AE4D /* PTInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTInputView.m; sourceTree = "<group>"; };
+		538C30351B4E7D020079AE4D /* PTInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PTInputView.xib; sourceTree = "<group>"; };
 		53F4B88E1B4CE97F00FE11F6 /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
 		53F4B88F1B4CE97F00FE11F6 /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
 		53F4B8911B4CE97F00FE11F6 /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
@@ -588,6 +596,7 @@
 		5312F2971B4CF43000DF8D7F /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				538C30311B4E7CCA0079AE4D /* View */,
 				53F9272C1B4BAE6B00ECF807 /* Main.storyboard */,
 				5312F2C21B4D1DA700DF8D7F /* PTMeViewController.h */,
 				5312F2C31B4D1DA700DF8D7F /* PTMeViewController.m */,
@@ -599,6 +608,8 @@
 				538C30291B4E63F70079AE4D /* PTContactsTableViewController.m */,
 				538C302B1B4E72350079AE4D /* PTAddContactTableViewController.h */,
 				538C302C1B4E72350079AE4D /* PTAddContactTableViewController.m */,
+				538C302E1B4E7C6F0079AE4D /* PTChatViewController.h */,
+				538C302F1B4E7C6F0079AE4D /* PTChatViewController.m */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -672,6 +683,16 @@
 				538C30201B4E25140079AE4D /* PTXMPPTool.m */,
 			);
 			path = Utilty;
+			sourceTree = "<group>";
+		};
+		538C30311B4E7CCA0079AE4D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				538C30321B4E7CE60079AE4D /* PTInputView.h */,
+				538C30331B4E7CE60079AE4D /* PTInputView.m */,
+				538C30351B4E7D020079AE4D /* PTInputView.xib */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 		53F4B8891B4CE8C000FE11F6 /* Classes */ = {
@@ -1716,6 +1737,7 @@
 			files = (
 				53F4B8C51B4CE97F00FE11F6 /* build-libidn.sh in Resources */,
 				53F9272E1B4BAE6B00ECF807 /* Main.storyboard in Resources */,
+				538C30361B4E7D020079AE4D /* PTInputView.xib in Resources */,
 				53F4B8C01B4CE97F00FE11F6 /* README.txt in Resources */,
 				5312F2991B4CF45F00DF8D7F /* Login.storyboard in Resources */,
 				53F927301B4BAE6B00ECF807 /* Images.xcassets in Resources */,
@@ -1836,6 +1858,7 @@
 				53F4BA331B4CEA8300FE11F6 /* XMPPUserCoreDataStorageObject.m in Sources */,
 				53F4BA641B4CEA8300FE11F6 /* XMPPMessage+XEP_0085.m in Sources */,
 				53F4BA501B4CEA8300FE11F6 /* XMPPvCardCoreDataStorageObject.m in Sources */,
+				538C30341B4E7CE60079AE4D /* PTInputView.m in Sources */,
 				53F4BA2E1B4CEA8300FE11F6 /* XMPPReconnect.m in Sources */,
 				53F4BA221B4CEA8300FE11F6 /* XMPPMessage.m in Sources */,
 				53F4BA661B4CEA8300FE11F6 /* XMPPTransports.m in Sources */,
@@ -1881,6 +1904,7 @@
 				53F4BA691B4CEA8300FE11F6 /* XMPPCapabilitiesCoreDataStorage.m in Sources */,
 				53F4BA591B4CEA8300FE11F6 /* XMPPvCardTempTel.m in Sources */,
 				53F4BA3D1B4CEA8300FE11F6 /* XMPPLastActivity.m in Sources */,
+				538C30301B4E7C6F0079AE4D /* PTChatViewController.m in Sources */,
 				53F927281B4BAE6B00ECF807 /* AppDelegate.m in Sources */,
 				53F4BA751B4CEA8300FE11F6 /* XMPPPresence+XEP_0172.m in Sources */,
 				53F4BA6E1B4CEA8300FE11F6 /* XMPPMessageArchiving_Contact_CoreDataObject.m in Sources */,

@@ -31,6 +31,9 @@
     
     XMPPvCardAvatarModule *_avatar;//头像
     
+    XMPPMessageArchiving *_msgArchiving;//聊天模块
+    
+    
 }
 
 // 1. 初始化XMPPStream
@@ -83,6 +86,11 @@ singleton_implementation(PTXMPPTool)
     _roster = [[XMPPRoster alloc] initWithRosterStorage:_rosterStorage];
     [_roster activate:_xmppStream];
     
+    //消息模块
+    _msgStorage = [[XMPPMessageArchivingCoreDataStorage alloc] init];
+    _msgArchiving = [[XMPPMessageArchiving alloc] initWithMessageArchivingStorage:_msgStorage];
+    [_msgArchiving activate:_xmppStream];
+    
     // 设置代理
     [_xmppStream addDelegate:self delegateQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
 }
@@ -98,6 +106,7 @@ singleton_implementation(PTXMPPTool)
     [_vCard deactivate];
     [_avatar deactivate];
     [_roster deactivate];
+    [_msgArchiving deactivate];
     
     // 断开连接
     [_xmppStream disconnect];
@@ -109,6 +118,8 @@ singleton_implementation(PTXMPPTool)
     _avatar = nil;
     _roster = nil;
     _rosterStorage = nil;
+    _msgArchiving = nil;
+    _msgStorage = nil;
     _xmppStream = nil;
     
 }
