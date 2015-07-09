@@ -22,14 +22,15 @@
 
 @interface PTXMPPTool()<XMPPStreamDelegate>
 {
-    XMPPStream *_xmppStream;
+
     XMPPResultBlock _resultBlock;
     
-    XMPPReconnect *_reconnect;
+    XMPPReconnect *_reconnect;//自动连接模块
     
     XMPPvCardCoreDataStorage *_vCardStorage;//电子名片存储
     
     XMPPvCardAvatarModule *_avatar;//头像
+    
 }
 
 // 1. 初始化XMPPStream
@@ -77,6 +78,11 @@ singleton_implementation(PTXMPPTool)
     [_avatar activate:_xmppStream];//激活
     
     
+    //花名册模块
+    _rosterStorage = [[XMPPRosterCoreDataStorage alloc] init];
+    _roster = [[XMPPRoster alloc] initWithRosterStorage:_rosterStorage];
+    [_roster activate:_xmppStream];
+    
     // 设置代理
     [_xmppStream addDelegate:self delegateQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
 }
@@ -91,7 +97,7 @@ singleton_implementation(PTXMPPTool)
     [_reconnect deactivate];
     [_vCard deactivate];
     [_avatar deactivate];
-    //[_roster deactivate];
+    [_roster deactivate];
     
     // 断开连接
     [_xmppStream disconnect];
@@ -101,8 +107,8 @@ singleton_implementation(PTXMPPTool)
     _vCard = nil;
     _vCardStorage = nil;
     _avatar = nil;
-    //_roster = nil;
-    //_rosterStorage = nil;
+    _roster = nil;
+    _rosterStorage = nil;
     _xmppStream = nil;
     
 }
@@ -122,11 +128,11 @@ singleton_implementation(PTXMPPTool)
     //从PTUserInfo中获取用户名 注意区分注册用户与登录用户
     NSString *user = self.isRegisterOperation?[PTUserInfo sharedPTUserInfo].registerUser:[PTUserInfo sharedPTUserInfo].user;
     
-    XMPPJID *myJID = [XMPPJID jidWithUser:user domain:@"wangzhong1986.local" resource:@"iphone" ];
+    XMPPJID *myJID = [XMPPJID jidWithUser:user domain:domain resource:@"iphone" ];
     _xmppStream.myJID = myJID;
     
     // 设置服务器域名
-    _xmppStream.hostName = @"wangzhong1986.local";//不仅可以是域名，还可是IP地址
+    _xmppStream.hostName = domain;//不仅可以是域名，还可是IP地址
     
     // 设置端口 如果服务器端口是5222，可以省略
     _xmppStream.hostPort = 5222;

@@ -9,9 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "Singleton.h"
 
+static NSString *domain = @"wangzhong1986.local";
+
 @interface PTUserInfo : NSObject
 
 singleton_interface(PTUserInfo)
+
+@property (nonatomic, copy) NSString * jid;
 
 /**
  *

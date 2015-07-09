@@ -40,15 +40,7 @@
 
 @implementation PTMeViewController
 
-/**
- *    如何使用coreData获取数据
- *    1.上下文［关联到数据］
- *    2.FetchRequest
- *    3.设置过滤条件，排序
- *    4.执行请求获取数据
- *
- *    author:wz
- **/
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];

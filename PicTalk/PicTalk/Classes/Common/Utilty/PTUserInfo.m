@@ -12,6 +12,9 @@
 #define PASSWORDKEY @"pwd"
 #define LOGINSTATUS @"loginstauts"
 
+
+
+
 @implementation PTUserInfo
 
 singleton_implementation(PTUserInfo)
@@ -31,6 +34,11 @@ singleton_implementation(PTUserInfo)
     self.user = [defaults objectForKey:USERKEY];
     self.pwd = [defaults objectForKey:PASSWORDKEY];
     self.loginStatus = [defaults boolForKey:LOGINSTATUS];
+}
+
+-(NSString *)jid
+{
+    return [NSString stringWithFormat:@"%@@%@",self.user,domain];
 }
 
 @end

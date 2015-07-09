@@ -27,6 +27,8 @@
 		538C30211B4E25140079AE4D /* PTXMPPTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 538C30201B4E25140079AE4D /* PTXMPPTool.m */; };
 		538C30241B4E476E0079AE4D /* PTProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 538C30231B4E476E0079AE4D /* PTProfileTableViewController.m */; };
 		538C30271B4E525E0079AE4D /* PTEditProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 538C30261B4E525E0079AE4D /* PTEditProfileTableViewController.m */; };
+		538C302A1B4E63F70079AE4D /* PTContactsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 538C30291B4E63F70079AE4D /* PTContactsTableViewController.m */; };
+		538C302D1B4E72350079AE4D /* PTAddContactTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 538C302C1B4E72350079AE4D /* PTAddContactTableViewController.m */; };
 		53F4B8B71B4CE97F00FE11F6 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 53F4B88F1B4CE97F00FE11F6 /* GCDAsyncSocket.m */; };
 		53F4B8B81B4CE97F00FE11F6 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 53F4B8921B4CE97F00FE11F6 /* DDAbstractDatabaseLogger.m */; };
 		53F4B8B91B4CE97F00FE11F6 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 53F4B8941B4CE97F00FE11F6 /* DDASLLogger.m */; };
@@ -230,6 +232,10 @@
 		538C30231B4E476E0079AE4D /* PTProfileTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTProfileTableViewController.m; sourceTree = "<group>"; };
 		538C30251B4E525E0079AE4D /* PTEditProfileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTEditProfileTableViewController.h; sourceTree = "<group>"; };
 		538C30261B4E525E0079AE4D /* PTEditProfileTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTEditProfileTableViewController.m; sourceTree = "<group>"; };
+		538C30281B4E63F70079AE4D /* PTContactsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTContactsTableViewController.h; sourceTree = "<group>"; };
+		538C30291B4E63F70079AE4D /* PTContactsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTContactsTableViewController.m; sourceTree = "<group>"; };
+		538C302B1B4E72350079AE4D /* PTAddContactTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTAddContactTableViewController.h; sourceTree = "<group>"; };
+		538C302C1B4E72350079AE4D /* PTAddContactTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTAddContactTableViewController.m; sourceTree = "<group>"; };
 		53F4B88E1B4CE97F00FE11F6 /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
 		53F4B88F1B4CE97F00FE11F6 /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
 		53F4B8911B4CE97F00FE11F6 /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
@@ -589,6 +595,10 @@
 				538C30231B4E476E0079AE4D /* PTProfileTableViewController.m */,
 				538C30251B4E525E0079AE4D /* PTEditProfileTableViewController.h */,
 				538C30261B4E525E0079AE4D /* PTEditProfileTableViewController.m */,
+				538C30281B4E63F70079AE4D /* PTContactsTableViewController.h */,
+				538C30291B4E63F70079AE4D /* PTContactsTableViewController.m */,
+				538C302B1B4E72350079AE4D /* PTAddContactTableViewController.h */,
+				538C302C1B4E72350079AE4D /* PTAddContactTableViewController.m */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -1802,6 +1812,7 @@
 				53F4BA8A1B4CEA8300FE11F6 /* DDList.m in Sources */,
 				53F4BA201B4CEA8300FE11F6 /* XMPPIQ.m in Sources */,
 				5312F2BC1B4D0AA100DF8D7F /* MBProgressHUD.m in Sources */,
+				538C302A1B4E63F70079AE4D /* PTContactsTableViewController.m in Sources */,
 				53F4BA4D1B4CEA8300FE11F6 /* XMPPvCard.xcdatamodeld in Sources */,
 				5312F2AD1B4CFEF400DF8D7F /* UIImage+WF.m in Sources */,
 				53F4BA5B1B4CEA8300FE11F6 /* XMPPResultSet.m in Sources */,
@@ -1840,6 +1851,7 @@
 				53F4B8C31B4CE97F00FE11F6 /* DDXMLElement.m in Sources */,
 				53F4B8BA1B4CE97F00FE11F6 /* DDFileLogger.m in Sources */,
 				53F4BA361B4CEA8300FE11F6 /* XMPPUserMemoryStorageObject.m in Sources */,
+				538C302D1B4E72350079AE4D /* PTAddContactTableViewController.m in Sources */,
 				53F4B8BD1B4CE97F00FE11F6 /* DDContextFilterLogFormatter.m in Sources */,
 				53F4BA891B4CEA8300FE11F6 /* NSXMLElement+XEP_0335.m in Sources */,
 				53F4BA3B1B4CEA8300FE11F6 /* XMPPJabberRPCModule.m in Sources */,
