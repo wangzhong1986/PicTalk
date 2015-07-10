@@ -53,18 +53,20 @@
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"displayName" ascending:YES];
     request.sortDescriptors = @[sort];
     
-    //4
-    _resultController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:context sectionNameKeyPath:nil cacheName:nil];
-    
-    _resultController.delegate = self;
-    
-    NSError *err = nil;
-    [_resultController performFetch:&err];
-    
-    if (err) {
-        PTLog(@"%@",err);
+    if (request) {
+        //4
+        _resultController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:context sectionNameKeyPath:nil cacheName:nil];
+        
+        _resultController.delegate = self;
+        
+        NSError *err = nil;
+        [_resultController performFetch:&err];
+        
+        if (err) {
+            PTLog(@"%@",err);
+        }
     }
-
+    
 }
 
 #pragma mark 当数据库内容改变，调用该方法

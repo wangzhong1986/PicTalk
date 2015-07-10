@@ -10,6 +10,8 @@
 #import "PTInputView.h"
 #import "UIImageView+WebCache.h"
 #import <BCSticker/BCSticker.h>
+#import "PTChatViewCell.h"
+#import "XLPicBrowser.h"
 
 @interface PTChatViewController ()<UITableViewDataSource,UITableViewDelegate,NSFetchedResultsControllerDelegate,UITextViewDelegate>
 {
@@ -29,6 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.title = @"聊天";
     
     [self setupView];
     
@@ -70,6 +73,7 @@
     UITableView *tableView = [[UITableView alloc] init];
     tableView.delegate = self;
     tableView.dataSource = self;
+    //tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     tableView.translatesAutoresizingMaskIntoConstraints = NO;//代码实现自动布局需要去除该属性
     [self.view addSubview:tableView];
     self.tableView = tableView;
@@ -148,14 +152,19 @@
     return _resultController.fetchedObjects.count;
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 100;
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     // Configure the cell...
     static NSString *ID = @"ChatCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    PTChatViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+        cell= (PTChatViewCell *)[[[NSBundle  mainBundle] loadNibNamed:@"PTChatViewCell" owner:self options:nil]  lastObject];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
     // 获取聊天消息对象
@@ -166,29 +175,49 @@
     if ([chatType isEqualToString:@"image"]) {
         //下图片显示
         
-        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:msg.body] placeholderImage:[UIImage imageNamed:@"DefaultProfileHead_qq"]];
-        cell.textLabel.text = nil;
+        cell.meImageView.hidden = YES;
+        cell.picImageView.hidden = YES;
+        cell.textView.hidden = YES;
+        
+        __weak typeof (cell) weakCell = cell;
+        //显示消息
+        if ([msg.outgoing boolValue]) {//自己发
+            [cell.meImageView sd_setImageWithURL:[NSURL URLWithString:msg.body] placeholderImage:[UIImage imageNamed:@"DefaultProfileHead_qq"]];
+            cell.meImageView.hidden = NO;
+            
+            cell.tapblock = ^(){
+                XLPicBrowser *browser = [XLPicBrowser browserWithPhotos:@[weakCell.meImageView] withIndex:0];
+                [browser show];
+            };
+        }else{//别人发的
+            [cell.picImageView sd_setImageWithURL:[NSURL URLWithString:msg.body] placeholderImage:[UIImage imageNamed:@"DefaultProfileHead_qq"]];
+            cell.picImageView.hidden = NO;
+            
+            cell.tapblock = ^(){
+                XLPicBrowser *browser = [XLPicBrowser browserWithPhotos:@[weakCell.picImageView] withIndex:0];
+                [browser show];
+            };
+        }
+        
+        
+ 
+        
     }else if([chatType isEqualToString:@"text"]){
         
         //显示消息
         if ([msg.outgoing boolValue]) {//自己发
-            cell.textLabel.text = [NSString stringWithFormat:@"Me:%@",msg.body];
+            cell.textView.text = msg.body;
+            cell.textView.textAlignment = NSTextAlignmentRight;
+            cell.textView.textColor = [UIColor blueColor];
         }else{//别人发的
-            cell.textLabel.text = [NSString stringWithFormat:@"Other:%@",msg.body];
+            cell.textView.text = msg.body;
+            cell.textView.textAlignment = NSTextAlignmentLeft;
+            cell.textView.textColor = [UIColor brownColor];
+            
         }
-        
-        cell.imageView.image = nil;
-    }
-    else
-    {
-        //显示消息
-        if ([msg.outgoing boolValue]) {//自己发
-            cell.textLabel.text = [NSString stringWithFormat:@"Me:%@",msg.body];
-        }else{//别人发的
-            cell.textLabel.text = [NSString stringWithFormat:@"Other:%@",msg.body];
-        }
-        
-        cell.imageView.image = nil;
+        cell.meImageView.hidden = YES;
+        cell.picImageView.hidden = YES;
+        cell.textView.hidden = NO;
     }
     
     return cell;
