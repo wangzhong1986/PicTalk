@@ -38,9 +38,22 @@
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         self.window.rootViewController = storyboard.instantiateInitialViewController;
         
-        //自动登录服务器
-        [[PTXMPPTool sharedPTXMPPTool] xmppUserLogin:nil];
+        //1秒后自动登录，一般情况下不会马上链接
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            //自动登录服务器
+            [[PTXMPPTool sharedPTXMPPTool] xmppUserLogin:nil];
+        });
+        
     }
+    
+    //注册应用通知
+    if ([[UIDevice currentDevice].systemVersion doubleValue]> 8.0) {
+        
+        UIUserNotificationSettings *setting = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge|UIUserNotificationTypeSound|UIUserNotificationTypeAlert categories:nil];
+        [application registerUserNotificationSettings:setting];
+    }
+    
+    
     
     return YES;
 }

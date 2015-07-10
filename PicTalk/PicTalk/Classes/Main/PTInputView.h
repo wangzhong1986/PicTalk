@@ -11,6 +11,7 @@
 @interface PTInputView : UIView
 
 @property (weak, nonatomic) IBOutlet UITextView *textView;
+@property (weak, nonatomic) IBOutlet UIButton *addBtn;
 
 + (instancetype) inputView;
 

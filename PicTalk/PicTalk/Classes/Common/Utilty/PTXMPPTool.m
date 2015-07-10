@@ -20,6 +20,8 @@
  4. 授权成功后，发送"在线" 消息
  */
 
+NSString *const PTLoginStatusChangeNotification = @"WCLoginStatusNotification";
+
 @interface PTXMPPTool()<XMPPStreamDelegate>
 {
 
@@ -91,6 +93,9 @@ singleton_implementation(PTXMPPTool)
     _msgArchiving = [[XMPPMessageArchiving alloc] initWithMessageArchivingStorage:_msgStorage];
     [_msgArchiving activate:_xmppStream];
     
+    //IOS 7 要在info.plist中添加Required background modes ＝ App provides Voice over IP services，并且只有真机上可见效果
+    _xmppStream.enableBackgroundingOnSocket = YES;
+    
     // 设置代理
     [_xmppStream addDelegate:self delegateQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
 }
@@ -124,6 +129,18 @@ singleton_implementation(PTXMPPTool)
     
 }
 
+/**
+ * 通知 WCHistoryViewControllers 登录状态
+ *
+ */
+-(void)postNotification:(XMPPResultType)resultType{
+    
+    // 将登录状态放入字典，然后通过通知传递
+    NSDictionary *userInfo = @{@"loginStatus":@(resultType)};
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:PTLoginStatusChangeNotification object:nil userInfo:userInfo];
+}
+
 
 #pragma mark 连接到服务器
 -(void)connectToHost{
@@ -154,6 +171,8 @@ singleton_implementation(PTXMPPTool)
         PTLog(@"%@",err);
     }
     
+    // 通知正在连接中
+    [self postNotification:XMPPResultTypeConnecting];
 }
 
 
@@ -213,6 +232,9 @@ singleton_implementation(PTXMPPTool)
             _resultBlock(XMPPResultTypeLoginNetError);
         }
         
+        // 通知网络不稳定
+        [self postNotification:XMPPResultTypeLoginNetError];
+        
     }
 }
 
@@ -228,6 +250,8 @@ singleton_implementation(PTXMPPTool)
         _resultBlock(XMPPResultTypeLoginSuccess);
     }
     
+    // 通知授权成功
+    [self postNotification:XMPPResultTypeLoginSuccess];
 }
 
 
@@ -238,6 +262,35 @@ singleton_implementation(PTXMPPTool)
     //失败block
     if (_resultBlock) {
         _resultBlock(XMPPResultTypeLoginFailure);
+    }
+    
+    // 通知授权失败
+    [self postNotification:XMPPResultTypeLoginFailure];
+    
+}
+
+#pragma mark 接收到好友消息
+-(void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message
+{
+    PTLog(@"%@",message);
+    
+    //判断客户端不在前台，发出一个本地通知
+    if ([UIApplication sharedApplication].applicationState != UIApplicationStateActive) {
+        PTLog(@"当前程序在后台");
+        
+        UILocalNotification *noti = [[UILocalNotification alloc] init];
+        
+        //设置内容
+        noti.alertBody = [NSString stringWithFormat:@"%@\n%@",message.fromStr,message.body];
+        
+        //设置通知执行时间
+        noti.fireDate = [NSDate date];
+        
+        //声音
+        noti.soundName = @"default";
+        
+        //执行通知
+        [[UIApplication sharedApplication] scheduleLocalNotification:noti];
     }
     
 }

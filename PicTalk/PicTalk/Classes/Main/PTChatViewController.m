@@ -8,13 +8,17 @@
 
 #import "PTChatViewController.h"
 #import "PTInputView.h"
+#import "UIImageView+WebCache.h"
+#import <BCSticker/BCSticker.h>
 
 @interface PTChatViewController ()<UITableViewDataSource,UITableViewDelegate,NSFetchedResultsControllerDelegate,UITextViewDelegate>
 {
     NSFetchedResultsController *_resultController;
 }
 
-@property (nonatomic, strong) NSLayoutConstraint *inputViewConstraint;//inputView 底部约束
+@property (nonatomic, strong) NSLayoutConstraint *inputViewHeightConstraint;//inputView 高度约束
+
+@property (nonatomic, strong) NSLayoutConstraint *inputViewBottomConstraint;//inputView 底部约束
 
 @property (nonatomic, weak) UITableView *tableView;
 
@@ -46,7 +50,7 @@
     
     CGFloat kbHeight = kbEndFrm.size.height;
     
-    self.inputViewConstraint.constant = kbHeight;
+    self.inputViewBottomConstraint.constant = kbHeight;
     
     //表格滚动到地步
     [self scrollToTableViewBottom];
@@ -54,7 +58,7 @@
 
 - (void) keyboardWillHide:(NSNotification *)noti
 {
-    self.inputViewConstraint.constant = 0;
+    self.inputViewBottomConstraint.constant = 0;
 }
 
 
@@ -74,6 +78,10 @@
     PTInputView *inputView = [PTInputView inputView];
     inputView.translatesAutoresizingMaskIntoConstraints = NO;//代码实现自动布局需要去除该属性
     inputView.textView.delegate = self;
+    
+    //添加按钮事件
+    [inputView.addBtn addTarget:self action:@selector(addBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    
     [self.view addSubview:inputView];
     
     //自动布局
@@ -96,7 +104,8 @@
     
     [self.view addConstraints:vConstraints];
     
-    self.inputViewConstraint = [vConstraints lastObject];
+    self.inputViewBottomConstraint = [vConstraints lastObject];
+    self.inputViewHeightConstraint = vConstraints[2];
 }
 
 #pragma mark - 加载数据库数据显示
@@ -152,14 +161,35 @@
     // 获取聊天消息对象
     XMPPMessageArchiving_Message_CoreDataObject *msg = _resultController.fetchedObjects[indexPath.row];
     
-    if ([msg.outgoing boolValue]) {//自己发的
-        cell.textLabel.text = [NSString stringWithFormat:@"Me:%@",msg.body];
+    // 判断是图片还是纯文本
+    NSString *chatType = [msg.message attributeStringValueForName:@"bodyType"];
+    if ([chatType isEqualToString:@"image"]) {
+        //下图片显示
+        
+        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:msg.body] placeholderImage:[UIImage imageNamed:@"DefaultProfileHead_qq"]];
+        cell.textLabel.text = nil;
+    }else if([chatType isEqualToString:@"text"]){
+        
+        //显示消息
+        if ([msg.outgoing boolValue]) {//自己发
+            cell.textLabel.text = [NSString stringWithFormat:@"Me:%@",msg.body];
+        }else{//别人发的
+            cell.textLabel.text = [NSString stringWithFormat:@"Other:%@",msg.body];
+        }
+        
+        cell.imageView.image = nil;
     }
     else
-    {//别人发的
-        cell.textLabel.text = [NSString stringWithFormat:@"Other:%@",msg.body];
+    {
+        //显示消息
+        if ([msg.outgoing boolValue]) {//自己发
+            cell.textLabel.text = [NSString stringWithFormat:@"Me:%@",msg.body];
+        }else{//别人发的
+            cell.textLabel.text = [NSString stringWithFormat:@"Other:%@",msg.body];
+        }
+        
+        cell.imageView.image = nil;
     }
-    
     
     return cell;
 }
@@ -176,14 +206,37 @@
 #pragma mark - textView 代理
 - (void)textViewDidChange:(UITextView *)textView
 {
+    //获取ContentSize
+    CGFloat contentH = textView.contentSize.height;
+    PTLog(@"textView的content的高度 %f",contentH);
+    
+    // 大于33，超过一行的高度/ 小于68 高度是在三行内
+    if (contentH > 33 && contentH < 68 ) {
+        self.inputViewHeightConstraint.constant = contentH + 18;
+    }
+    else if(contentH <= 33)
+    {
+        self.inputViewHeightConstraint.constant = 50;
+    }
+    
+    
+    
+    NSString *text = textView.text;
+    
     //换行即为发送
-    if ([textView.text rangeOfString:@"\n"].length !=0) {
-        PTLog(@"发送数据 %@",textView.text);
+    if ([text rangeOfString:@"\n"].length !=0) {
+        PTLog(@"发送数据 %@",text);
         
-        [self sendMessageWithText:textView.text];
+        // 去除换行字符
+        text = [text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        
+        [self sendMsgWithText:text bodyType:@"text"];
         
         //发送后清空
         textView.text = nil;
+        
+        // 发送完消息 把inputView的高度改回来
+        self.inputViewHeightConstraint.constant = 50;
     }
     else
     {
@@ -192,15 +245,17 @@
 }
 
 #pragma mark - 发送聊天消息
-- (void) sendMessageWithText:(NSString *)text
-{
-    //chat 表示个人对个人聊天
+-(void)sendMsgWithText:(NSString *)text bodyType:(NSString *)bodyType{
+    
     XMPPMessage *msg = [XMPPMessage messageWithType:@"chat" to:self.friendJid];
     
-    //设置内容
-    [msg addBody:text];
-    PTLog(@"%@",msg);
+    //text 纯文本
+    //image 图片
+    [msg addAttributeWithName:@"bodyType" stringValue:bodyType];
     
+    // 设置内容
+    [msg addBody:text];
+    NSLog(@"%@",msg);
     [[PTXMPPTool sharedPTXMPPTool].xmppStream sendElement:msg];
 }
 
@@ -208,10 +263,21 @@
 - (void) scrollToTableViewBottom
 {
     NSInteger lastRow = _resultController.fetchedObjects.count - 1;
+    if (lastRow<0) {
+        return;
+    }
     NSIndexPath *lastPath = [NSIndexPath indexPathForRow:lastRow inSection:0];
     [self.tableView scrollToRowAtIndexPath:lastPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 }
 
+#pragma mark 调用花熊SDK
+-(void)addBtnClick{
+    
+    [CreatOneViewController createInVC:self withParameters:@{@"appid":@"181222", @"appkey":@"sdk-hx-iosandroidvip1507090001"} callBack:^(NSString *url, UIImage *img, NSString *topicId) {
+        
+        [self sendMsgWithText:url bodyType:@"image"];
+    }];
+}
 /*
 #pragma mark - Navigation
 

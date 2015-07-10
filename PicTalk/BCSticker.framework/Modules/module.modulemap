@@ -1,0 +1,6 @@
+framework module BCSticker {
+  umbrella header "BCSticker.h"
+
+  export *
+  module * { export * }
+}

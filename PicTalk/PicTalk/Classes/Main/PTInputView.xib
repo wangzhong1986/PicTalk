@@ -17,19 +17,36 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="send"/>
                 </textView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pfv-TC-BlX">
+                    <rect key="frame" x="550" y="0.0" width="50" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="Jws-ie-SVR"/>
+                        <constraint firstAttribute="width" constant="50" id="uCq-BE-cLY"/>
+                    </constraints>
+                    <state key="normal" image="TypeSelectorBtn_Black">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
             </subviews>
             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="gM7-Ox-YOC" secondAttribute="trailing" constant="117" id="BSS-4e-6uC"/>
                 <constraint firstItem="gM7-Ox-YOC" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="9" id="C3B-Gk-DxV"/>
                 <constraint firstAttribute="bottom" secondItem="gM7-Ox-YOC" secondAttribute="bottom" constant="9" id="Flx-MO-IBc"/>
+                <constraint firstAttribute="trailing" secondItem="Pfv-TC-BlX" secondAttribute="trailing" id="Kl6-RE-DBR"/>
+                <constraint firstItem="Pfv-TC-BlX" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Prk-5i-NL5"/>
                 <constraint firstItem="gM7-Ox-YOC" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="50" id="bab-jW-Dxx"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="addBtn" destination="Pfv-TC-BlX" id="SMq-4b-R1K"/>
                 <outlet property="textView" destination="gM7-Ox-YOC" id="qMb-cH-4Zf"/>
             </connections>
+            <point key="canvasLocation" x="-61" y="258"/>
         </view>
     </objects>
+    <resources>
+        <image name="TypeSelectorBtn_Black" width="35" height="35"/>
+    </resources>
 </document>
